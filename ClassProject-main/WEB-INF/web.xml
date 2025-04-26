@@ -1,0 +1,47 @@
+<web-app xmlns="https://jakarta.ee/xml/ns/jakartaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee 
+         https://jakarta.ee/xml/ns/jakartaee/web-app_6_0.xsd"
+         version="6.0">
+
+    <!-- Student Dashboard Servlet -->
+    <servlet>
+        <servlet-name>StudentDashboardServlet</servlet-name>
+        <servlet-class>servlets.StudentDashboardServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StudentDashboardServlet</servlet-name>
+        <url-pattern>/student-dashboard</url-pattern>
+    </servlet-mapping>
+
+    <!-- Student Schedule Servlet -->
+    <servlet>
+        <servlet-name>StudentScheduleServlet</servlet-name>
+        <servlet-class>servlets.StudentScheduleServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StudentScheduleServlet</servlet-name>
+        <url-pattern>/student-schedule</url-pattern>
+    </servlet-mapping>
+
+    <!-- Student Grades Servlet -->
+    <servlet>
+        <servlet-name>StudentGradesServlet</servlet-name>
+        <servlet-class>servlets.StudentGradesServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StudentGradesServlet</servlet-name>
+        <url-pattern>/student-grades</url-pattern>
+    </servlet-mapping>
+
+    <!-- Student Attendance Servlet -->
+    <servlet>
+        <servlet-name>StudentAttendanceServlet</servlet-name>
+        <servlet-class>servlets.StudentAttendanceServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>StudentAttendanceServlet</servlet-name>
+        <url-pattern>/student-attendance</url-pattern>
+    </servlet-mapping>
+
+</web-app>

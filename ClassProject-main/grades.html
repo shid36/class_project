@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Grades | Student Management System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      /* Your CSS (same as before) */
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(to right, #e8f5e9, #f1f8e9);
+        color: #2e2e2e;
+        min-height: 100vh;
+        position: relative;
+        padding-bottom: 60px;
+      }
+
+      header {
+        background: #008000;
+        color: #fff;
+        padding: 25px;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      nav ul li {
+        display: inline;
+        margin: 0 12px;
+      }
+
+      nav ul li a {
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s;
+      }
+
+      nav ul li a:hover {
+        color: #caffd1;
+      }
+
+      .logout {
+        background: #ff4d4d;
+        padding: 6px 14px;
+        border-radius: 5px;
+        margin-left: 10px;
+        transition: background 0.3s;
+      }
+
+      .logout:hover {
+        background: #e60000;
+      }
+
+      main {
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-image: url("image/logo.jpg");
+        background-size: 200px;
+        background-position: left bottom;
+        background-repeat: no-repeat;
+      }
+
+      .welcome-box {
+        background: #ffffffd9;
+        padding: 25px;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        width: 70%;
+        max-width: 800px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        text-align: center;
+      }
+
+      .grades-card {
+        background: #ffffffd9;
+        padding: 25px 30px;
+        border-radius: 12px;
+        width: 70%;
+        max-width: 800px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        text-align: left;
+        transition: transform 0.3s ease;
+        margin-top: 20px;
+      }
+
+      .grades-card:hover {
+        transform: scale(1.03);
+      }
+
+      .grades-card h3 {
+        font-size: 22px;
+        color: #388e3c;
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      .grades-card p {
+        margin: 8px 0;
+        font-size: 16px;
+      }
+
+      footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        padding: 15px;
+        background: #008000;
+        color: #fff;
+      }
+
+      @media (max-width: 600px) {
+        .grades-card, .welcome-box {
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Student Management System</h1>
+      <nav>
+        <ul>
+          <li><a href="student_homepage.html">Dashboard</a></li>
+          <li><a href="schedule.html">Schedule</a></li>
+          <li><a href="grades.html">Grades</a></li>
+          <li><a href="attendance.html">Attendance</a></li>
+          <li><a href="#">Announcements</a></li>
+          <li><a href="login.html" class="logout">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <!-- Welcome Box -->
+      <section class="welcome-box">
+        <h2>Welcome to Your Grades Overview</h2>
+        <p>Here you can find your semester-wise grades and overall performance!</p>
+      </section>
+
+      <!-- Grades Section -->
+      <section class="grades-card" id="grades">
+        <h3>Grades</h3>
+        <div id="semester-grades"></div>
+        <div id="total-cgpa" style="margin-top: 30px; text-align: center; font-weight: bold; font-size: 20px;"></div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Student Management System. All rights reserved.</p>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        fetch("http://localhost:8080/ClassProject/student-grades")
+          .then((res) => res.json())
+          .then((data) => {
+            console.log("Grades Data:", data);
+
+            const semesterGradesContainer = document.getElementById("semester-grades");
+
+            // Sort semesters correctly (sem1, sem2, sem3, etc.)
+            const sortedSemesters = Object.keys(data.grades).sort((a, b) => {
+              const numA = parseInt(a.replace('sem', ''));
+              const numB = parseInt(b.replace('sem', ''));
+              return numA - numB;
+            });
+
+            let totalGpa = 0;
+            let semesterCount = 0;
+
+            sortedSemesters.forEach((semester) => {
+              const semesterDiv = document.createElement("div");
+              semesterDiv.classList.add("semester-section");
+              semesterDiv.style.marginBottom = "30px";
+              semesterDiv.style.padding = "20px";
+              semesterDiv.style.background = "#ffffffcc";
+              semesterDiv.style.borderRadius = "10px";
+              semesterDiv.style.boxShadow = "0 4px 10px rgba(0,0,0,0.1)";
+
+              const gpa = parseFloat(data.gpas[semester]) || 0;
+
+              if (gpa !== 0) {
+                totalGpa += gpa;
+                semesterCount++;
+              }
+
+              let semesterHTML = `
+                <h3>${semester.toUpperCase()}</h3>
+                <p><strong>GPA:</strong> ${gpa !== 0 ? gpa.toFixed(2) : "N/A"}</p>
+                <table style="width:100%; margin-top:10px; border-collapse: collapse;">
+                  <thead>
+                    <tr>
+                      <th style="border-bottom: 1px solid #ddd; padding: 8px; text-align: left;">Subject</th>
+                      <th style="border-bottom: 1px solid #ddd; padding: 8px; text-align: left;">Grade</th>
+                      <th style="border-bottom: 1px solid #ddd; padding: 8px; text-align: left;">Grade Point</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+              `;
+
+              data.grades[semester].forEach((subjectInfo) => {
+                semesterHTML += `
+                  <tr>
+                    <td style="border-bottom: 1px solid #eee; padding: 8px;">${subjectInfo.subject}</td>
+                    <td style="border-bottom: 1px solid #eee; padding: 8px;">${subjectInfo.gradeLetter}</td>
+                    <td style="border-bottom: 1px solid #eee; padding: 8px;">${subjectInfo.gradePoint}</td>
+                  </tr>
+                `;
+              });
+
+              semesterHTML += `
+                  </tbody>
+                </table>
+              `;
+
+              semesterDiv.innerHTML = semesterHTML;
+              semesterGradesContainer.appendChild(semesterDiv);
+            });
+
+            // Calculate and show total CGPA
+            const cgpa = semesterCount > 0 ? (totalGpa / semesterCount).toFixed(2) : "N/A";
+            document.getElementById("total-cgpa").innerHTML = `Total CGPA: ${cgpa}`;
+          })
+          .catch((err) => {
+            console.error("Failed to load grades:", err);
+          });
+      });
+    </script>
+  </body>
+</html>

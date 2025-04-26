@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login | Student Management System</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="login-container">
+      <form class="login-form">
+        <h2>Welcome Back</h2>
+        <p class="text1">Please log in to continue</p>
+
+        <div class="input-group">
+          <input type="text" required />
+          <label>Username</label>
+        </div>
+
+        <div class="input-group">
+          <input type="password" required />
+          <label>Password</label>
+        </div>
+
+        <button type="submit" class="btn">Login</button>
+
+        <div class="links">
+          <a href="#">Forgot Password?</a>
+          <span>|</span>
+          <a href="#">Sign Up</a>
+        </div>
+      </form>
+    </div>
+  </body>
+</html>
+<style>
+  /* Import Google Font */
+  @import url("https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap");
+
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+  }
+
+  
+  body {
+    background: url("images/login-bg.jpg") no-repeat center center/cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+
+
+  .login-container {
+    background: rgba(41, 41, 41, 1);
+    backdrop-filter: blur(15px);
+    padding: 40px;
+    border-radius: 12px;
+    text-align: center;
+    width: 350px;
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+  }
+
+
+  .login-form h2 {
+    margin-bottom: 10px;
+    font-size: 26px;
+    color: #fff;
+  }
+
+  .text1 {
+    font-size: 14px;
+    color: #00d9ff;
+    margin-bottom: 20px;
+  }
+
+
+  .input-group {
+    position: relative;
+    margin: 20px 0;
+  }
+
+  .input-group input {
+    width: 100%;
+    padding: 12px;
+    border: rgb(41, 41, 41);
+    border-bottom: 2px solid rgb(181, 181, 181);
+    background: transparent;
+    color: #1808ff;
+    outline: none;
+    font-size: 16px;
+    transition: 0.3s;
+  }
+
+  .input-group label {
+    position: absolute;
+    left: 10px;
+    bottom: 14px;
+    color: rgba(255, 255, 255, 0.7);
+    transition: 0.3s;
+    font-size: 16px;
+  }
+
+  .input-group input:focus + label,
+  .input-group input:valid + label {
+    bottom: 35px;
+    font-size: 12px;
+    color: #00c6ff;
+  }
+
+  
+  .btn {
+    background: linear-gradient(135deg, #6dffff, #000dff);
+    color: #fff;
+    padding: 12px;
+    border: none;
+    width: 100%;
+    cursor: pointer;
+    font-size: 16px;
+    border-radius: 25px;
+    transition: 0.3s;
+    box-shadow: 0 5px 15px rgba(0, 114, 255, 0.3);
+  }
+
+  .btn:hover {
+    background: linear-gradient(135deg, #0072ff, #00c6ff);
+    box-shadow: 0 5px 15px rgba(0, 198, 255, 0.5);
+  }
+
+  
+  .links {
+    margin-top: 15px;
+  }
+
+  .links a {
+    color: #fff;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+  }
+
+  .links span {
+    color: rgba(255, 255, 255, 0.5);
+    margin: 0 10px;
+  }
+
+  .links a:hover {
+    text-decoration: underline;
+    color: #00c6ff;
+  }
+</style>

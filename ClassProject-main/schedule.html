@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Schedule | Student Management System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(to right, #e8f5e9, #f1f8e9);
+        color: #2e2e2e;
+        min-height: 100vh;
+        position: relative;
+        padding-bottom: 60px;
+      }
+
+      header {
+        background: #008000;
+        color: #fff;
+        padding: 25px;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      nav ul li {
+        display: inline;
+        margin: 0 12px;
+      }
+
+      nav ul li a {
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s;
+      }
+
+      nav ul li a:hover {
+        color: #caffd1;
+      }
+
+      .logout {
+        background: #ff4d4d;
+        padding: 6px 14px;
+        border-radius: 5px;
+        margin-left: 10px;
+        transition: background 0.3s;
+      }
+
+      .logout:hover {
+        background: #e60000;
+      }
+
+      main {
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-image: url("image/logo.jpg");
+        background-size: 200px;
+        background-position: left bottom;
+        background-repeat: no-repeat;
+      }
+
+      .welcome {
+        background: #ffffffea;
+        padding: 40px;
+        border-radius: 15px;
+        width: 70%;
+        max-width: 800px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .welcome h2 {
+        font-size: 28px;
+        color: #2e7d32;
+        margin-bottom: 10px;
+      }
+
+      .stats {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 25px;
+      }
+
+      .schedule-card {
+        background: #ffffffd9;
+        padding: 25px 30px;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 900px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        text-align: center;
+        overflow-x: auto;
+      }
+
+      .schedule-card:hover {
+        transform: scale(1.02);
+      }
+
+      .schedule-card h3 {
+        font-size: 22px;
+        color: #388e3c;
+        margin-bottom: 15px;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        border: 1px solid #ccc;
+        text-align: center;
+      }
+
+      th {
+        background-color: #a5d6a7;
+      }
+
+      td {
+        background-color: #f9f9f9;
+      }
+
+      footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        padding: 15px;
+        background: #008000;
+        color: #fff;
+      }
+
+      @media (max-width: 600px) {
+        .schedule-card {
+          width: 90%;
+        }
+        .welcome {
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Student Management System</h1>
+      <nav>
+        <ul>
+          <li><a href="student_homepage.html">Dashboard</a></li>
+          <li><a href="schedule.html">Schedule</a></li>
+          <li><a href="grades.html">Grades</a></li>
+          <li><a href="attendance.html">Attendance</a></li>
+          <li><a href="#">Announcements</a></li>
+          <li><a href="login.html" class="logout">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="welcome">
+        <h2>Welcome, Muhiminul!</h2>
+        <p>Stay updated with your weekly schedule.</p>
+      </section>
+
+      <section class="stats">
+        <div class="schedule-card">
+          <h3>Your Weekly Schedule</h3>
+          <div class="table-container">
+            <table id="schedule-table">
+              <thead>
+                <tr>
+                  <th>Day / Time</th>
+                  <th>9:00 - 10:30</th>
+                  <th>10:30 - 12:00</th>
+                  <th>12:00 - 1:30</th>
+                  <th>1:30 - 3:00</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Filled dynamically by JS -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Student Management System. All rights reserved.</p>
+    </footer>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        fetch("http://localhost:8080/ClassProject/student-schedule")
+          .then((res) => res.json())
+          .then((data) => {
+            document.querySelector(
+              ".welcome h2"
+            ).textContent = `Welcome, ${data.name}!`;
+
+            const tableBody = document.querySelector("#schedule-table tbody");
+            const days = ["Monday", "Tuesday", "Wednesday", "Thursday"];
+
+            // Access the schedule data for each day
+            const schedule = data.schedule;
+
+            // Render the table rows dynamically for each day
+            days.forEach((day) => {
+              const row = document.createElement("tr");
+              row.innerHTML = `
+          <td><strong>${day}</strong></td>
+          <td>${schedule[day][0] || "-"}</td>
+          <td>${schedule[day][1] || "-"}</td>
+          <td>${schedule[day][2] || "-"}</td>
+          <td>${schedule[day][3] || "-"}</td>
+        `;
+              tableBody.appendChild(row);
+            });
+          })
+          .catch((err) => {
+            console.error("Failed to load schedule:", err);
+          });
+      });
+    </script>
+  </body>
+</html>

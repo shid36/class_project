@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Teacher Dashboard | Student Management System</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header>
+      <h1>Student Management System</h1>
+      <nav>
+        <ul>
+          <li><a href="#">Dashboard</a></li>
+          <li><a href="#">Manage Classes</a></li>
+          <li><a href="#">Mark Attendance</a></li>
+          <li><a href="#">Assign Grades</a></li>
+          <li><a href="#">Reports</a></li>
+          <li><a href="login.html" class="logout">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="welcome">
+        <h2>Welcome, Alamgir!</h2>
+        <p>Manage your classes, mark attendance, and track student progress.</p>
+      </section>
+
+      <!-- Teacher Dashboard Features -->
+      <section class="stats">
+        <div class="card">
+          <h3>My Classes</h3>
+          <p>Math (Grade 10)</p>
+          <p>Science (Grade 9)</p>
+          <p>History (Grade 11)</p>
+        </div>
+        <div class="card">
+          <h3>Pending Attendance</h3>
+          <p>Math - 10 Students</p>
+          <p>Science - 8 Students</p>
+        </div>
+        <div class="card">
+          <h3>Assignments to Grade</h3>
+          <p>Math Quiz - 12 Submissions</p>
+          <p>Science Project - 9 Submissions</p>
+        </div>
+        <div class="card">
+          <h3>Upcoming Reports</h3>
+          <p>📢 Grade Reports Due Next Week</p>
+          <p>📢 Parent Meeting on Friday</p>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Student Management System. All rights reserved.</p>
+    </footer>
+  </body>
+</html>
+<style>
+  * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+  }
+
+  header {
+    background: #008000;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+
+  nav ul {
+    list-style: none;
+    padding: 0;
+    text-align: center;
+  }
+
+  nav ul li {
+    display: inline;
+    margin: 0 15px;
+  }
+
+  nav ul li a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: bold;
+  }
+
+  .logout {
+    background: #ff4d4d;
+    padding: 8px 15px;
+    border-radius: 5px;
+  }
+
+  .logout:hover {
+    background: #e60000;
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 75vh;
+    text-align: center;
+    background-image: url(image/logo.jpg);
+    background-size: 300px;
+    background-position: left;
+    background-repeat: no-repeat;
+    width: 100%;
+  }
+
+  .welcome {
+    background: rgba(255, 255, 255, 0.9);
+    padding: 30px;
+    border-radius: 10px;
+    width: 60%;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+  }
+
+  .stats {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .card {
+    background: rgba(255, 255, 255, 0.8);
+    padding: 20px;
+    border-radius: 10px;
+    text-align: center;
+    width: 220px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+
+  footer {
+    text-align: center;
+    padding: 15px;
+    background: #008000;
+    color: #fff;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+  }
+</style>

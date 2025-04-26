@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Student Attendance | Student Management System</title>
+    <link rel="stylesheet" href="styles.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(to right, #e8f5e9, #f1f8e9);
+        color: #2e2e2e;
+        min-height: 100vh;
+        position: relative;
+        padding-bottom: 60px;
+      }
+
+      header {
+        background: #008000;
+        color: #fff;
+        padding: 25px;
+        text-align: center;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      nav ul {
+        list-style: none;
+        padding: 0;
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      nav ul li {
+        display: inline;
+        margin: 0 12px;
+      }
+
+      nav ul li a {
+        color: #ffffff;
+        text-decoration: none;
+        font-weight: 600;
+        transition: color 0.3s;
+      }
+
+      nav ul li a:hover {
+        color: #caffd1;
+      }
+
+      .logout {
+        background: #ff4d4d;
+        padding: 6px 14px;
+        border-radius: 5px;
+        margin-left: 10px;
+        transition: background 0.3s;
+      }
+
+      .logout:hover {
+        background: #e60000;
+      }
+
+      main {
+        padding: 40px 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background-image: url("image/logo.jpg");
+        background-size: 200px;
+        background-position: left bottom;
+        background-repeat: no-repeat;
+      }
+
+      .welcome {
+        background: #ffffffea;
+        padding: 40px;
+        border-radius: 15px;
+        width: 70%;
+        max-width: 800px;
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        margin-bottom: 30px;
+      }
+
+      .welcome h2 {
+        font-size: 28px;
+        color: #2e7d32;
+        margin-bottom: 10px;
+      }
+
+      .stats {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 25px;
+        width: 100%;
+      }
+
+      .summary-card,
+      .attendance-card {
+        background: #ffffffd9;
+        padding: 25px 30px;
+        border-radius: 12px;
+        width: 100%;
+        max-width: 900px;
+        box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
+        text-align: center;
+      }
+
+      .summary-card:hover,
+      .attendance-card:hover {
+        transform: scale(1.02);
+      }
+
+      .summary-content {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        font-size: 18px;
+        color: #388e3c;
+        margin-top: 15px;
+      }
+
+      .table-container {
+        margin-top: 20px;
+        overflow-x: auto;
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 12px;
+        border: 1px solid #ccc;
+        text-align: center;
+      }
+
+      th {
+        background-color: #a5d6a7;
+      }
+
+      td {
+        background-color: #f9f9f9;
+      }
+
+      select {
+        margin-top: 10px;
+        padding: 8px 12px;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        font-size: 16px;
+      }
+
+      footer {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        text-align: center;
+        padding: 15px;
+        background: #008000;
+        color: #fff;
+      }
+
+      @media (max-width: 600px) {
+        .summary-card,
+        .attendance-card,
+        .welcome {
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+    <header>
+      <h1>Student Management System</h1>
+      <nav>
+        <ul>
+          <li><a href="student_homepage.html">Dashboard</a></li>
+          <li><a href="schedule.html">Schedule</a></li>
+          <li><a href="grades.html">Grades</a></li>
+          <li><a href="attendance.html">Attendance</a></li>
+          <li><a href="#">Announcements</a></li>
+          <li><a href="login.html" class="logout">Logout</a></li>
+        </ul>
+      </nav>
+    </header>
+
+    <main>
+      <section class="welcome">
+        <h2>Welcome, Muhiminul!</h2>
+        <p>Track your monthly attendance here.</p>
+      </section>
+
+      <section class="stats">
+        <div class="summary-card">
+          <h3>Summary for <span id="summary-month">January</span></h3>
+          <div class="summary-content">
+            <div>Total Classes: <span id="total-classes">0</span></div>
+            <div>Present: <span id="present-count">0</span></div>
+            <div>Absent: <span id="absent-count">0</span></div>
+            <div>Late: <span id="late-count">0</span></div>
+          </div>
+        </div>
+
+        <div class="attendance-card">
+          <h3>Attendance Record</h3>
+          <select id="month-select">
+            <option value="January" selected>January</option>
+            <option value="February">February</option>
+            <option value="March">March</option>
+            <option value="April">April</option>
+          </select>
+
+          <div class="table-container">
+            <table id="attendance-table">
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Status</th>
+                </tr>
+              </thead>
+              <tbody>
+                <!-- Will be filled dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <p>&copy; 2025 Student Management System. All rights reserved.</p>
+    </footer>
+
+    <script>
+      let attendanceData = {}; // will be filled from server
+
+      async function fetchAttendanceData() {
+        try {
+          const response = await fetch(
+            "http://localhost:8080/ClassProject/student-attendance"
+          );
+          if (!response.ok) {
+            throw new Error("Failed to fetch data");
+          }
+          const data = await response.json();
+          attendanceData = data.attendance; // <-- Only attendance part
+          console.log("Attendance data loaded:", attendanceData);
+          updateAttendanceTable("January");
+        } catch (error) {
+          console.error("Error loading attendance:", error);
+        }
+      }
+
+      function updateAttendanceTable(month) {
+        const tbody = document.querySelector("#attendance-table tbody");
+        tbody.innerHTML = "";
+
+        const records = attendanceData[month] || [];
+        if (records.length === 0) {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+            <td colspan="2">No attendance records available for ${month}.</td>
+          `;
+          tbody.appendChild(row);
+        } else {
+          records.forEach((record) => {
+            const row = document.createElement("tr");
+            row.innerHTML = `
+              <td>${record.date}</td>
+              <td>${record.status}</td>
+            `;
+            tbody.appendChild(row);
+          });
+        }
+
+        document.getElementById("summary-month").textContent = month;
+        updateSummary(records);
+      }
+
+      function updateSummary(records) {
+        let total = records.length;
+        let present = records.filter((r) => r.status === "Present").length;
+        let absent = records.filter((r) => r.status === "Absent").length;
+        let late = records.filter((r) => r.status === "Late").length;
+
+        document.getElementById("total-classes").textContent = total;
+        document.getElementById("present-count").textContent = present;
+        document.getElementById("absent-count").textContent = absent;
+        document.getElementById("late-count").textContent = late;
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const monthSelect = document.getElementById("month-select");
+
+        monthSelect.addEventListener("change", (e) => {
+          updateAttendanceTable(e.target.value);
+        });
+
+        fetchAttendanceData();
+      });
+    </script>
+  </body>
+</html>

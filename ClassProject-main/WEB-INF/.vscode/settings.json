@@ -1,0 +1,17 @@
+{
+<<<<<<< HEAD
+    "java.project.referencedLibraries": [
+      "WEB-INF/lib/**/*.jar"
+    ],
+    "java.project.sourcePaths": ["src"],
+    "java.project.outputPath": "WEB-INF/classes"
+  }
+  
+=======
+  "java.project.sourcePaths": ["src"],
+  "java.project.outputPath": "WEB-INF/classes",
+  "java.project.referencedLibraries": [
+    "WEB-INF/lib/**/*.jar"
+  ]
+}
+>>>>>>> 1dd8092b7e906aea0bd9da0b6a1e1bdf3a63d814
